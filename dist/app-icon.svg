@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Kingsoft Store Control Center</title>
+  <desc id="desc">A branded stock control icon with a box, ledger, and movement arrows.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#173b61" />
+      <stop offset="1" stop-color="#091724" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8d476" />
+      <stop offset="1" stop-color="#c3922e" />
+    </linearGradient>
+    <linearGradient id="green" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#9be15d" />
+      <stop offset="1" stop-color="#2f8f46" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+  <circle cx="256" cy="256" r="174" fill="none" stroke="#2f6db2" stroke-width="24" opacity=".72" />
+  <path d="M382 146c50 25 82 77 82 135" fill="none" stroke="url(#gold)" stroke-linecap="round" stroke-width="28" />
+  <path d="M438 285l-50-24 18 52z" fill="url(#gold)" />
+  <path d="M92 330c42 50 110 72 174 54 44-12 81-40 104-78" fill="none" stroke="url(#green)" stroke-linecap="round" stroke-width="30" />
+  <path d="M369 305l-57 4 35 45z" fill="url(#green)" />
+  <rect x="174" y="104" width="164" height="218" rx="22" fill="#f8fafc" stroke="#0f172a" stroke-width="14" />
+  <rect x="208" y="82" width="96" height="48" rx="16" fill="url(#gold)" />
+  <circle cx="256" cy="94" r="15" fill="#102235" />
+  <path d="M206 169l20 20 42-47" fill="none" stroke="#1882d8" stroke-linecap="round" stroke-width="14" />
+  <path d="M206 226l20 20 42-47" fill="none" stroke="#4baa24" stroke-linecap="round" stroke-width="14" />
+  <rect x="276" y="164" width="42" height="14" rx="7" fill="#cbd5e1" />
+  <rect x="276" y="221" width="42" height="14" rx="7" fill="#cbd5e1" />
+  <path d="M118 306l89-45 90 45-90 48z" fill="#ffd65c" />
+  <path d="M118 306l89 48v72l-89-45z" fill="#d98b15" />
+  <path d="M297 306l-90 48v72l90-45z" fill="#f0a720" />
+  <path d="M162 286l90 47" stroke="#fff4ba" stroke-width="8" opacity=".78" />
+</svg>

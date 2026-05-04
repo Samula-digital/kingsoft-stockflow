@@ -1,0 +1,11 @@
+<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Kalya Courts Hotel">
+  <defs>
+    <linearGradient id="g" x1="7" y1="2" x2="40" y2="42" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2D472"/>
+      <stop offset="1" stop-color="#C9A227"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="40" height="40" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.16)" stroke-width="2"/>
+  <path d="M10 30.5L18.2 20.5L23.5 26.3L30.2 18L34 30.5H10Z" fill="url(#g)"/>
+  <path d="M10 30.5H34" stroke="rgba(255,255,255,0.35)" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

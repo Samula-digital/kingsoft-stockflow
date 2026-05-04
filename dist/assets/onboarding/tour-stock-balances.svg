@@ -1,0 +1,21 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" rx="32" fill="#eef2ff"/>
+  <rect x="64" y="64" width="1072" height="136" rx="24" fill="#ffffff"/>
+  <rect x="96" y="102" width="280" height="24" rx="12" fill="#eff6ff"/>
+  <rect x="96" y="142" width="420" height="16" rx="8" fill="#dbeafe"/>
+  <rect x="64" y="224" width="1072" height="420" rx="24" fill="#ffffff"/>
+  <rect x="104" y="264" width="200" height="22" rx="11" fill="#2563eb"/>
+  <rect x="104" y="302" width="200" height="22" rx="11" fill="#0ea5e9"/>
+  <rect x="104" y="340" width="200" height="22" rx="11" fill="#22c55e"/>
+  <rect x="104" y="388" width="980" height="18" rx="9" fill="#f3f4f6"/>
+  <rect x="104" y="420" width="980" height="18" rx="9" fill="#f3f4f6"/>
+  <rect x="104" y="452" width="980" height="18" rx="9" fill="#f3f4f6"/>
+  <rect x="104" y="484" width="980" height="18" rx="9" fill="#f3f4f6"/>
+  <rect x="104" y="516" width="980" height="18" rx="9" fill="#f3f4f6"/>
+  <rect x="104" y="548" width="980" height="18" rx="9" fill="#f3f4f6"/>
+  <rect x="104" y="600" width="340" height="46" rx="20" fill="#fefce8"/>
+  <rect x="104" y="600" width="90" height="18" rx="9" fill="#f59e0b"/>
+  <rect x="224" y="600" width="260" height="18" rx="9" fill="#fde68a"/>
+  <text x="104" y="226" fill="#1f2937" font-size="32" font-weight="700">Stock balance view</text>
+  <text x="104" y="262" fill="#475569" font-size="18">Track quantities, low-stock alerts, and available inventory at a glance.</text>
+</svg>

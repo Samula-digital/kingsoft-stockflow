@@ -1,0 +1,22 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" rx="32" fill="#f5f7fb"/>
+  <rect x="48" y="48" width="1104" height="100" rx="24" fill="#ffffff"/>
+  <rect x="80" y="88" width="160" height="18" rx="9" fill="#c7d2fe"/>
+  <rect x="260" y="88" width="240" height="18" rx="9" fill="#e2e8f0"/>
+  <rect x="540" y="88" width="180" height="18" rx="9" fill="#e2e8f0"/>
+  <rect x="840" y="88" width="216" height="18" rx="9" fill="#e2e8f0"/>
+  <rect x="72" y="172" width="1056" height="484" rx="24" fill="#ffffff"/>
+  <rect x="104" y="208" width="430" height="80" rx="18" fill="#e0f2fe"/>
+  <rect x="104" y="308" width="430" height="110" rx="18" fill="#f8fafc"/>
+  <rect x="104" y="446" width="430" height="160" rx="18" fill="#f8fafc"/>
+  <rect x="570" y="208" width="520" height="320" rx="18" fill="#eef2ff"/>
+  <rect x="600" y="240" width="320" height="20" rx="10" fill="#1d4ed8"/>
+  <rect x="600" y="278" width="420" height="16" rx="8" fill="#bfdbfe"/>
+  <rect x="600" y="308" width="420" height="16" rx="8" fill="#dbeafe"/>
+  <rect x="600" y="338" width="420" height="16" rx="8" fill="#bfdbfe"/>
+  <rect x="600" y="376" width="320" height="14" rx="7" fill="#dbeafe"/>
+  <rect x="600" y="406" width="320" height="14" rx="7" fill="#dbeafe"/>
+  <rect x="600" y="434" width="320" height="14" rx="7" fill="#dbeafe"/>
+  <text x="104" y="192" fill="#1f2937" font-size="32" font-weight="700">Stock movement form</text>
+  <text x="104" y="242" fill="#475569" font-size="18">Capture receive/issue details quickly with a guided entry form.</text>
+</svg>

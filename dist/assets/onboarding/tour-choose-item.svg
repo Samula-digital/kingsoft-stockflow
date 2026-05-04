@@ -1,0 +1,26 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" rx="32" fill="#f8fafc"/>
+  <rect x="72" y="72" width="1056" height="144" rx="24" fill="#ffffff"/>
+  <rect x="104" y="110" width="240" height="24" rx="12" fill="#c7d2fe"/>
+  <rect x="104" y="148" width="380" height="16" rx="8" fill="#e2e8f0"/>
+  <rect x="520" y="110" width="424" height="24" rx="12" fill="#eef2ff"/>
+  <rect x="520" y="148" width="320" height="16" rx="8" fill="#dbeafe"/>
+  <rect x="72" y="244" width="1056" height="404" rx="24" fill="#ffffff"/>
+  <rect x="104" y="282" width="488" height="120" rx="20" fill="#eef2ff"/>
+  <rect x="104" y="420" width="488" height="120" rx="20" fill="#f8fafc"/>
+  <rect x="624" y="282" width="464" height="120" rx="20" fill="#fef9c3"/>
+  <rect x="624" y="420" width="464" height="120" rx="20" fill="#d1fae5"/>
+  <rect x="148" y="318" width="110" height="18" rx="9" fill="#1d4ed8"/>
+  <rect x="148" y="348" width="380" height="14" rx="7" fill="#bfdbfe"/>
+  <rect x="148" y="384" width="260" height="14" rx="7" fill="#dbeafe"/>
+  <rect x="148" y="450" width="110" height="18" rx="9" fill="#047857"/>
+  <rect x="148" y="480" width="380" height="14" rx="7" fill="#a7f3d0"/>
+  <rect x="148" y="516" width="260" height="14" rx="7" fill="#d9f99d"/>
+  <rect x="660" y="318" width="120" height="22" rx="11" fill="#1d4ed8"/>
+  <rect x="660" y="352" width="320" height="14" rx="7" fill="#bfdbfe"/>
+  <rect x="660" y="384" width="320" height="14" rx="7" fill="#dbeafe"/>
+  <rect x="660" y="426" width="120" height="22" rx="11" fill="#047857"/>
+  <rect x="660" y="460" width="320" height="14" rx="7" fill="#a7f3d0"/>
+  <text x="104" y="250" fill="#1f2937" font-size="32" font-weight="700">Choose item & quantity</text>
+  <text x="104" y="292" fill="#475569" font-size="18">Pick the right part, enter units, then save to update stock instantly.</text>
+</svg>

@@ -1,0 +1,10 @@
+# ignore build and release artifacts
+release/
+builds/
+release/windows/
+*.exe
+*.zip
+*.7z
+*.tar.gz
+node_modules/
+.DS_Store

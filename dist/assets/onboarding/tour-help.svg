@@ -1,0 +1,22 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" rx="32" fill="#f7f9fc"/>
+  <rect x="84" y="84" width="1032" height="548" rx="30" fill="#ffffff"/>
+  <rect x="124" y="124" width="316" height="40" rx="20" fill="#eef2ff"/>
+  <rect x="124" y="184" width="316" height="24" rx="12" fill="#dbeafe"/>
+  <rect x="124" y="244" width="316" height="14" rx="7" fill="#e2e8f0"/>
+  <rect x="124" y="292" width="316" height="14" rx="7" fill="#e2e8f0"/>
+  <rect x="124" y="340" width="316" height="14" rx="7" fill="#e2e8f0"/>
+  <rect x="472" y="124" width="536" height="40" rx="20" fill="#eff6ff"/>
+  <rect x="512" y="184" width="456" height="20" rx="10" fill="#1d4ed8"/>
+  <rect x="512" y="220" width="420" height="16" rx="8" fill="#bfdbfe"/>
+  <rect x="512" y="256" width="420" height="16" rx="8" fill="#dbeafe"/>
+  <rect x="512" y="292" width="420" height="16" rx="8" fill="#bfdbfe"/>
+  <rect x="512" y="340" width="420" height="16" rx="8" fill="#dbeafe"/>
+  <rect x="512" y="388" width="420" height="16" rx="8" fill="#bfdbfe"/>
+  <rect x="124" y="432" width="456" height="96" rx="20" fill="#fef9c3"/>
+  <rect x="124" y="448" width="120" height="24" rx="12" fill="#f59e0b"/>
+  <rect x="124" y="486" width="320" height="14" rx="7" fill="#fde68a"/>
+  <rect x="124" y="520" width="260" height="14" rx="7" fill="#fde68a"/>
+  <text x="124" y="210" fill="#1f2937" font-size="32" font-weight="700">Help & guidance</text>
+  <text x="124" y="250" fill="#475569" font-size="18">Use the assistant panel for instant instructions and next-step recommendations.</text>
+</svg>

@@ -1,0 +1,18 @@
+{
+  "name": "Kingsoft Store Control Center",
+  "short_name": "Store Control",
+  "description": "Operational stock control for stores, finance, departments, requisitions, and audit review.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#edf0e7",
+  "theme_color": "#102235",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
