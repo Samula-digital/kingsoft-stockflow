@@ -13,8 +13,7 @@ wordpress-local/
 Bamutebi-Property-Managers-Website/
 public/images/meona/
 scripts/import-kalya*.php
-data/*.json
-data/*.sqlite
+data/
 reports/
 .env
 .env.*
