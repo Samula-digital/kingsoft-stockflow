@@ -1,9 +1,0 @@
-{
-  "/gallery/page": "app/gallery/page.js",
-  "/news/page": "app/news/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/page": "app/page.js",
-  "/get-involved/page": "app/get-involved/page.js",
-  "/impact/page": "app/impact/page.js",
-  "/donate/page": "app/donate/page.js"
-}

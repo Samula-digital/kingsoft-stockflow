@@ -1,0 +1,72 @@
+{
+  "name": "kingsoft-stockflow",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Stock movement control and reporting system for stores and finance teams.",
+  "author": "Kingsoft Online Solutions",
+  "type": "module",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "build": "vite build",
+    "db:export:postgres": "node scripts/export-postgres-seed.mjs",
+    "import:workbook": "node scripts/import-workbook.mjs",
+    "report:monthly": "node scripts/generate-monthly-report.mjs",
+    "lan:start": "node scripts/lan.js",
+    "package": "npm run build && node scripts/package.js",
+    "preview": "node server/server.js --preview",
+    "start": "node server/server.js",
+    "test": "vitest run",
+    "desktop:start": "npm run build && electron .",
+    "desktop:pack": "npm run build && electron-builder --dir",
+    "desktop:dist:win": "npm run build && electron-builder --win nsis"
+  },
+  "dependencies": {
+    "pg": "^8.20.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "electron": "^41.0.4",
+    "electron-builder": "^26.8.1",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.8",
+    "xlsx": "^0.18.5"
+  },
+  "build": {
+    "appId": "com.kingsoft.stockflow",
+    "productName": "Kingsoft Stock Flow",
+    "icon": "build/icon.png",
+    "directories": {
+      "output": "release/windows"
+    },
+    "files": [
+      "desktop/**/*",
+      "dist/**/*",
+      "server/**/*",
+      "src/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "desktop/main.cjs"
+    },
+    "asar": true,
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Kingsoft-Stock-Flow-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false
+    }
+  }
+}

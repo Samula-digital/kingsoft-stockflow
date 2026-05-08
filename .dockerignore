@@ -1,0 +1,10 @@
+node_modules
+dist
+release
+builds
+.next
+wordpress-local
+Bamutebi-Property-Managers-Website
+dj-hash-site
+*.log
+.DS_Store
