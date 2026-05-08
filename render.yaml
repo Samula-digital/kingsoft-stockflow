@@ -2,7 +2,7 @@ services:
   - type: web
     name: kingsoft-stockflow
     runtime: node
-    plan: starter
+    plan: free
     buildCommand: npm ci && npm run build
     startCommand: npm run start
     healthCheckPath: /api/health
@@ -15,9 +15,7 @@ services:
         value: 4000
       - key: STOCKFLOW_SECURE_COOKIES
         value: "true"
-      - key: STOCKFLOW_DATA_DIR
-        value: /data
-    disk:
-      name: stockflow-data
-      mountPath: /data
-      sizeGB: 1
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SSL
+        value: require

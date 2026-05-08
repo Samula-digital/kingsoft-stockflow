@@ -46,7 +46,7 @@ npm run start
 
 By default the server listens on port `4000`.
 
-To use PostgreSQL instead of the shared JSON file store, set:
+For free online hosting, use PostgreSQL instead of the shared JSON file store:
 
 ```bash
 DATABASE_URL=postgres://USER:PASSWORD@HOST:5432/DBNAME
@@ -58,7 +58,7 @@ Optional:
 DATABASE_SSL=require
 ```
 
-If `DATABASE_URL` is not set, the app uses the existing JSON-backed store.
+If `DATABASE_URL` is not set, the app uses the JSON-backed store. That is fine for local/LAN, but not safe on free online hosts because their filesystems may reset.
 
 When `DATABASE_URL` is set for the first time on an empty database, the server automatically seeds PostgreSQL from the current JSON store if live data already exists.
 
@@ -76,15 +76,11 @@ Use:
 - start command: `npm run start`
 - health check: `/api/health`
 
-Required environment:
+Required environment for Render Free + Supabase:
 
 - `NODE_ENV=production`
 - `HOST=0.0.0.0`
 - `STOCKFLOW_SECURE_COOKIES=true`
-- `STOCKFLOW_DATA_DIR=/data`
-
-Optional for a real database:
-
 - `DATABASE_URL=postgres://...`
 - `DATABASE_SSL=require`
 
@@ -128,7 +124,7 @@ It starts with a clean JSON-backed store:
 
 - `data/kingsoft-stockflow.json`
 
-Live stock data is intentionally not committed to GitHub. Keep real hotel records in the local `data/` folder, a Render disk, or PostgreSQL via `DATABASE_URL`.
+Live stock data is intentionally not committed to GitHub. Keep real hotel records in the local `data/` folder for LAN, or PostgreSQL via `DATABASE_URL` for online.
 
 ## Desktop and LAN
 

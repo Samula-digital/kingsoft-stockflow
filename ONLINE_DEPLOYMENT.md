@@ -1,6 +1,6 @@
-# Online Deployment
+# Free Online Deployment
 
-Use Render for the fastest production-like launch.
+Use Render Free for the app and Supabase Free for the database.
 
 ## 1. GitHub
 
@@ -10,9 +10,24 @@ The app source is pushed to:
 https://github.com/Samula-digital/kingsoft-stockflow
 ```
 
-Real stock data is not committed. Online data lives on the server disk or in PostgreSQL.
+Real stock data is not committed. Online data must live in Supabase PostgreSQL.
 
-## 2. Render Setup
+## 2. Create Supabase Database
+
+1. Open `https://supabase.com`.
+2. Create a free project.
+3. Go to `Project Settings -> Database`.
+4. Copy the PostgreSQL connection string.
+5. Use the pooled/session connection if Supabase offers one.
+6. Replace `[YOUR-PASSWORD]` with your actual database password.
+
+It should look similar to:
+
+```text
+postgresql://postgres.xxxxx:PASSWORD@aws-0-region.pooler.supabase.com:6543/postgres
+```
+
+## 3. Render Setup
 
 Fast path:
 
@@ -34,9 +49,9 @@ Start Command: npm run start
 Health Check: /api/health
 ```
 
-The included `render.yaml` also mounts a persistent disk at `/data`, so the JSON-backed database survives restarts and redeploys.
+The included `render.yaml` uses Render Free and expects `DATABASE_URL`, so stock data is stored in Supabase instead of Render's temporary filesystem.
 
-## 3. Required Environment
+## 4. Required Environment
 
 These are already in `render.yaml`, but confirm them in Render:
 
@@ -45,25 +60,22 @@ NODE_ENV=production
 HOST=0.0.0.0
 PORT=4000
 STOCKFLOW_SECURE_COOKIES=true
-STOCKFLOW_DATA_DIR=/data
+DATABASE_SSL=require
 ```
 
-## 4. First Login Online
+Then add this secret environment variable in Render:
+
+```text
+DATABASE_URL=your_supabase_connection_string
+```
+
+## 5. First Login Online
 
 When the online app opens for the first time, create the first admin account from the sign-in page. After that:
 
 - Admin approves or creates users.
 - Store keeper records movements.
 - Finance signs in to review reports.
-
-## 5. Optional PostgreSQL Upgrade
-
-For heavier long-term online use, add a PostgreSQL database and set:
-
-```text
-DATABASE_URL=postgres://USER:PASSWORD@HOST:5432/DBNAME
-DATABASE_SSL=require
-```
 
 The server automatically creates the required tables.
 
