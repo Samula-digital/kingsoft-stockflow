@@ -14,6 +14,12 @@ Real stock data is not committed. Online data lives on the server disk or in Pos
 
 ## 2. Render Setup
 
+Fast path:
+
+[Deploy to Render](https://render.com/deploy?repo=https://github.com/Samula-digital/kingsoft-stockflow)
+
+Manual path:
+
 1. Open Render and choose `New -> Blueprint`.
 2. Connect the GitHub repository above.
 3. Select the `main` branch.
