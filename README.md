@@ -64,6 +64,8 @@ When `DATABASE_URL` is set for the first time on an empty database, the server a
 
 ## Deployment options
 
+For the shortest online launch path, use [ONLINE_DEPLOYMENT.md](ONLINE_DEPLOYMENT.md).
+
 ### Render
 
 This repo includes [render.yaml](render.yaml).
@@ -79,6 +81,7 @@ Required environment:
 - `NODE_ENV=production`
 - `HOST=0.0.0.0`
 - `STOCKFLOW_SECURE_COOKIES=true`
+- `STOCKFLOW_DATA_DIR=/data`
 
 Optional for a real database:
 

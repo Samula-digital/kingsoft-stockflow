@@ -25,7 +25,6 @@ COPY --from=build /app/app.js ./app.js
 COPY --from=build /app/app.cjs ./app.cjs
 COPY --from=build /app/vite.config.js ./vite.config.js
 COPY --from=build /app/index.html ./index.html
-COPY --from=build /app/data ./data
 
 EXPOSE 4000
 

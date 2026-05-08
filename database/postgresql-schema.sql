@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS departments (
 CREATE TABLE IF NOT EXISTS items (
   id TEXT PRIMARY KEY,
   code TEXT NOT NULL UNIQUE,
-  name TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
   category TEXT NOT NULL DEFAULT '',
   uom TEXT NOT NULL,
   opening_balance NUMERIC(14, 2) NOT NULL DEFAULT 0,
@@ -41,6 +41,8 @@ CREATE TABLE IF NOT EXISTS items (
   created_at TIMESTAMPTZ NULL,
   updated_at TIMESTAMPTZ NULL
 );
+
+ALTER TABLE items DROP CONSTRAINT IF EXISTS items_name_key;
 
 CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
@@ -114,6 +116,7 @@ CREATE TABLE IF NOT EXISTS movement_audit_changes (
 CREATE INDEX IF NOT EXISTS idx_departments_active ON departments (is_active);
 CREATE INDEX IF NOT EXISTS idx_items_active ON items (is_active);
 CREATE INDEX IF NOT EXISTS idx_items_category ON items (category);
+CREATE INDEX IF NOT EXISTS idx_items_name_uom ON items (LOWER(name), LOWER(uom));
 CREATE INDEX IF NOT EXISTS idx_movements_date ON movements (movement_date DESC);
 CREATE INDEX IF NOT EXISTS idx_movements_item_date ON movements (item_id, movement_date DESC);
 CREATE INDEX IF NOT EXISTS idx_movements_department_date ON movements (department_id, movement_date DESC);

@@ -17,3 +17,7 @@ services:
         value: "true"
       - key: STOCKFLOW_DATA_DIR
         value: /data
+    disk:
+      name: stockflow-data
+      mountPath: /data
+      sizeGB: 1
