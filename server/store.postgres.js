@@ -29,6 +29,23 @@ const pool = databaseUrl
 
 let initPromise = null;
 
+function classifyPostgresError(error) {
+  const message = error instanceof Error ? error.message : String(error ?? "");
+  const normalized = message.toLowerCase();
+
+  if (
+    normalized.includes("ssl") ||
+    normalized.includes("tls") ||
+    normalized.includes("self-signed certificate") ||
+    normalized.includes("certificate") ||
+    normalized.includes("no pg_hba.conf entry") && normalized.includes("ssl")
+  ) {
+    return "postgres_ssl_error";
+  }
+
+  return "postgres_connection_error";
+}
+
 function normalizeUserRecord(user) {
   if (!user || typeof user !== "object") return null;
 
@@ -727,4 +744,55 @@ export function getDatabasePath() {
 
 export function isPostgresEnabled() {
   return Boolean(pool);
+}
+
+export async function getPostgresDiagnostics({ requireDatabaseUrl = false } = {}) {
+  const sslEnabled =
+    databaseSslMode === "disable"
+      ? false
+      : databaseSslMode === "require"
+        ? true
+        : databaseUrl
+          ? !(databaseUrl.includes("localhost") || databaseUrl.includes("127.0.0.1"))
+          : null;
+
+  if (!databaseUrl) {
+    return {
+      configured: false,
+      connected: false,
+      issue: requireDatabaseUrl ? "missing_database_url" : null,
+      message: requireDatabaseUrl
+        ? "DATABASE_URL is not configured, so this production deployment cannot use shared PostgreSQL storage."
+        : "DATABASE_URL is not configured. Local file storage will be used.",
+      sslMode: databaseSslMode || "auto",
+      sslEnabled,
+    };
+  }
+
+  try {
+    const client = await pool.connect();
+    try {
+      await client.query("SELECT 1");
+    } finally {
+      client.release();
+    }
+
+    return {
+      configured: true,
+      connected: true,
+      issue: null,
+      message: "PostgreSQL connection is ready.",
+      sslMode: databaseSslMode || "auto",
+      sslEnabled,
+    };
+  } catch (error) {
+    return {
+      configured: true,
+      connected: false,
+      issue: classifyPostgresError(error),
+      message: error instanceof Error ? error.message : "PostgreSQL connection failed.",
+      sslMode: databaseSslMode || "auto",
+      sslEnabled,
+    };
+  }
 }

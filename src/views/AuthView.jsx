@@ -4,6 +4,70 @@ import { buildBrandStyles } from "../utils/branding";
 import { getPasswordPolicyHint, validatePasswordStrength } from "../utils/passwordPolicy.js";
 import { validateEmailAddress } from "../utils/validation";
 
+function getDeploymentDiagnostic({ serverError, deploymentStatus, requiresBootstrap }) {
+  const issue = deploymentStatus?.database?.issue ?? "";
+
+  if (issue === "missing_database_url") {
+    return {
+      tone: "danger",
+      title: "DATABASE_URL is missing",
+      message:
+        "The shared server is running, but this production deployment has no PostgreSQL connection string. Add DATABASE_URL in the host environment and redeploy.",
+      detail:
+        "On Render, set DATABASE_URL to the Supabase PostgreSQL connection string. Keep DATABASE_SSL=require for Supabase.",
+      blocksAuth: true,
+    };
+  }
+
+  if (issue === "postgres_ssl_error") {
+    return {
+      tone: "danger",
+      title: "PostgreSQL SSL problem",
+      message:
+        "The shared server reached PostgreSQL, but the SSL/TLS settings were rejected.",
+      detail:
+        "For Supabase, use the pooler/session connection string and set DATABASE_SSL=require. If this is a local database, set DATABASE_SSL=disable.",
+      blocksAuth: true,
+    };
+  }
+
+  if (issue === "postgres_connection_error") {
+    return {
+      tone: "danger",
+      title: "PostgreSQL connection failed",
+      message:
+        "The shared server is running, but it cannot connect to PostgreSQL.",
+      detail:
+        deploymentStatus?.database?.message ||
+        "Check the DATABASE_URL username, password, host, port, database name, and provider network access.",
+      blocksAuth: true,
+    };
+  }
+
+  if (serverError) {
+    return {
+      tone: "danger",
+      title: "Shared server not found",
+      message: serverError,
+      detail:
+        "Use npm run dev for local work or npm run start after build. Opening the raw HTML file or hosting only the frontend will break login.",
+      blocksAuth: true,
+    };
+  }
+
+  if (requiresBootstrap) {
+    return {
+      tone: "info",
+      title: "First admin needed",
+      message: "The shared server and database are ready. Create the first admin account to finish setup.",
+      detail: "",
+      blocksAuth: false,
+    };
+  }
+
+  return null;
+}
+
 export default function AuthView({
   onSignIn,
   onRequestAccess,
@@ -18,6 +82,7 @@ export default function AuthView({
   brandAccentColor,
   brandSidebarColor,
   serverError,
+  deploymentStatus,
 }) {
   const [mode, setMode] = useState("signin");
   const [isBusy, setIsBusy] = useState(false);
@@ -43,6 +108,12 @@ export default function AuthView({
     sidebarColor: brandSidebarColor,
   });
   const passwordHint = getPasswordPolicyHint();
+  const deploymentDiagnostic = getDeploymentDiagnostic({
+    serverError,
+    deploymentStatus,
+    requiresBootstrap,
+  });
+  const authBlocked = Boolean(deploymentDiagnostic?.blocksAuth);
 
   async function handleSignIn() {
     const emailValidation = validateEmailAddress(signInForm.email, { allowBlank: false });
@@ -216,18 +287,12 @@ export default function AuthView({
             <div className={`alert-banner alert-${feedback.tone}`}>{feedback.message}</div>
           ) : null}
 
-          {serverError ? (
-            <>
-              <div className="alert-banner alert-danger">{serverError}</div>
-              <div className="detail-block detail-block-compact">
-                <strong>Shared sign-in checklist</strong>
-                <p>
-                  This app needs the shared server to be running. Use <code>npm run dev</code> for
-                  local work or <code>npm run start</code> after build. Opening the raw HTML file
-                  or hosting only the frontend will break login.
-                </p>
-              </div>
-            </>
+          {deploymentDiagnostic ? (
+            <div className={`detail-block detail-block-compact deployment-diagnostic deployment-diagnostic-${deploymentDiagnostic.tone}`}>
+              <strong>{deploymentDiagnostic.title}</strong>
+              <p>{deploymentDiagnostic.message}</p>
+              {deploymentDiagnostic.detail ? <small>{deploymentDiagnostic.detail}</small> : null}
+            </div>
           ) : null}
 
           {requiresBootstrap ? (
@@ -274,7 +339,7 @@ export default function AuthView({
               </label>
 
               <div className="button-row">
-                <button className="button" type="submit" disabled={isBusy}>
+                <button className="button" type="submit" disabled={isBusy || authBlocked}>
                   {isBusy ? "Setting Up..." : "Create First Admin"}
                 </button>
               </div>
@@ -311,7 +376,7 @@ export default function AuthView({
               </label>
 
               <div className="button-row">
-                <button className="button" type="submit" disabled={isBusy}>
+                <button className="button" type="submit" disabled={isBusy || authBlocked}>
                   {isBusy ? "Signing In..." : "Sign In"}
                 </button>
               </div>
@@ -354,7 +419,7 @@ export default function AuthView({
               </label>
 
               <div className="button-row">
-                <button className="button" type="submit" disabled={isBusy}>
+                <button className="button" type="submit" disabled={isBusy || authBlocked}>
                   {isBusy ? "Processing..." : "Request Reset"}
                 </button>
               </div>
@@ -430,7 +495,7 @@ export default function AuthView({
               </label>
 
               <div className="button-row">
-                <button className="button" type="submit" disabled={isBusy}>
+                <button className="button" type="submit" disabled={isBusy || authBlocked}>
                   {isBusy ? "Sending..." : "Request Account"}
                 </button>
               </div>

@@ -310,6 +310,7 @@ export default function App() {
     state,
     isReady,
     requiresBootstrap,
+    deploymentStatus,
     lastSavedAt,
     saveError,
     itemMap,
@@ -1669,6 +1670,7 @@ export default function App() {
         brandAccentColor={brandAccentColor}
         brandSidebarColor={brandSidebarColor}
         serverError={saveError}
+        deploymentStatus={deploymentStatus}
       />
     );
   }
