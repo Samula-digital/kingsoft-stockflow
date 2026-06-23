@@ -52,6 +52,34 @@ async function requestJson(path, { method = "GET", body } = {}) {
   return payload ?? { ok: true };
 }
 
+export async function fetchDeploymentStatus() {
+  let response;
+
+  try {
+    response = await fetch("/api/status", {
+      credentials: "include",
+    });
+  } catch (error) {
+    throw new Error(
+      error instanceof Error && error.message
+        ? `${SHARED_SERVER_MESSAGE} (${error.message})`
+        : SHARED_SERVER_MESSAGE
+    );
+  }
+
+  const contentType = String(response.headers.get("content-type") ?? "").toLowerCase();
+  if (!contentType.includes("application/json")) {
+    throw new Error(
+      response.ok
+        ? SHARED_SERVER_MESSAGE
+        : `${SHARED_SERVER_MESSAGE} (status ${response.status})`
+    );
+  }
+
+  const payload = await response.json();
+  return payload ?? { ok: false, status: "unknown" };
+}
+
 export function fetchBootstrap() {
   return requestJson("/api/bootstrap");
 }

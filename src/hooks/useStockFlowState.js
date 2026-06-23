@@ -37,6 +37,7 @@ export function useStockFlowState() {
   const [saveError, setSaveError] = useState("");
   const [isReady, setIsReady] = useState(false);
   const [requiresBootstrap, setRequiresBootstrap] = useState(false);
+  const [deploymentStatus, setDeploymentStatus] = useState(null);
 
   const itemMap = useMemo(
     () => Object.fromEntries(state.items.map((item) => [item.id, item])),
@@ -68,8 +69,19 @@ export function useStockFlowState() {
     let isCancelled = false;
 
     api
-      .fetchBootstrap()
-      .then((snapshot) => {
+      .fetchDeploymentStatus()
+      .then(async (status) => {
+        if (isCancelled) return;
+        setDeploymentStatus(status);
+
+        if (status?.ok === false) {
+          setRequiresBootstrap(false);
+          setSaveError("");
+          setIsReady(true);
+          return;
+        }
+
+        const snapshot = await api.fetchBootstrap();
         if (isCancelled) return;
         syncSnapshot(snapshot);
         setIsReady(true);
@@ -309,6 +321,7 @@ export function useStockFlowState() {
     saveError,
     isReady,
     requiresBootstrap,
+    deploymentStatus,
     saveMovement,
     applyOpeningBalances,
     importMovements,

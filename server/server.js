@@ -46,6 +46,7 @@ import {
   findUserAuthById,
   findUserByEmail,
   getAppStateRecord,
+  getStoreDiagnostics,
   hasUsers,
   listUsers,
   mutateAppState,
@@ -62,6 +63,7 @@ const isDevMode = process.argv.includes("--dev");
 const port = Number(process.env.PORT) || (isPreviewMode ? 4173 : 4000);
 const host = String(process.env.HOST || "").trim() || undefined;
 const isDesktopApp = process.env.STOCKFLOW_DESKTOP_APP === "1";
+const requiresSharedDatabase = process.env.NODE_ENV === "production" && !isDesktopApp;
 const secureCookieOverride =
   process.env.STOCKFLOW_SECURE_COOKIES ?? process.env.COOKIE_SECURE ?? "";
 const AUTH_ATTEMPT_WINDOW_MS = 10 * 60 * 1000;
@@ -356,6 +358,39 @@ async function buildSnapshot(currentUser = null) {
     currentUser: approvedCurrentUser,
     users: approvedCurrentUser?.role === "admin" ? (await listUsers()).map(mapUserForApi) : [],
     lastSavedAt: updatedAt,
+  };
+}
+
+async function buildDeploymentStatus() {
+  const store = await getStoreDiagnostics({
+    requireDatabaseUrl: requiresSharedDatabase,
+  });
+  const databaseIssue = store.postgres?.issue ?? null;
+  const canReadApplicationData = !databaseIssue;
+  let requiresBootstrap = null;
+
+  if (canReadApplicationData) {
+    requiresBootstrap = !(await hasUsers());
+  }
+
+  return {
+    ok: canReadApplicationData,
+    status: databaseIssue || (requiresBootstrap ? "bootstrap_required" : "ready"),
+    server: {
+      ok: true,
+      mode: isDevMode ? "development" : process.env.NODE_ENV === "production" ? "production" : "local",
+    },
+    database: {
+      required: requiresSharedDatabase,
+      activeStore: store.kind,
+      configured: Boolean(store.postgres?.configured),
+      connected: Boolean(store.postgres?.connected),
+      issue: databaseIssue,
+      message: store.postgres?.message ?? "",
+      sslMode: store.postgres?.sslMode ?? "auto",
+      sslEnabled: store.postgres?.sslEnabled ?? null,
+    },
+    requiresBootstrap,
   };
 }
 
@@ -1290,7 +1325,25 @@ async function handleResetData(request, response, currentUser) {
 const server = createServer(async (request, response) => {
   try {
     const pathname = normalizeRoute(request.url);
-    const currentUser = await getCurrentUser(request);
+
+    if (
+      request.method === "GET" &&
+      (pathname === "/api/deployment-status" || pathname === "/api/status")
+    ) {
+      const status = await buildDeploymentStatus();
+      writeJson(response, status.ok ? 200 : 503, status);
+      return;
+    }
+
+    if (request.method === "GET" && pathname === "/api/health") {
+      const status = await buildDeploymentStatus();
+      writeJson(response, status.ok ? 200 : 503, {
+        ok: status.ok,
+        status: status.status,
+        requiresBootstrap: status.requiresBootstrap,
+      });
+      return;
+    }
 
     if (request.method === "GET" && pathname === "/manifest.webmanifest") {
       await serveManifest(response);
@@ -1307,13 +1360,12 @@ const server = createServer(async (request, response) => {
       return;
     }
 
-    if (request.method === "GET" && pathname === "/api/health") {
-      writeJson(response, 200, {
-        ok: true,
-        requiresBootstrap: !(await hasUsers()),
-      });
+    if (!pathname.startsWith("/api/")) {
+      serveStatic(pathname, response);
       return;
     }
+
+    const currentUser = await getCurrentUser(request);
 
     if (request.method === "GET" && pathname === "/api/bootstrap") {
       await handleBootstrap(response, currentUser);

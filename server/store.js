@@ -11,6 +11,15 @@ export function isDatabaseBackedStoreEnabled() {
   return usePostgres;
 }
 
+export async function getStoreDiagnostics(options = {}) {
+  const postgres = await postgresStore.getPostgresDiagnostics(options);
+
+  return {
+    kind: usePostgres ? "postgres" : "file",
+    postgres,
+  };
+}
+
 export async function getAppStateRecord() {
   return select("getAppStateRecord")();
 }

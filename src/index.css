@@ -2934,6 +2934,28 @@ button {
   align-self: end;
 }
 
+.deployment-diagnostic {
+  align-self: stretch;
+}
+
+.deployment-diagnostic-danger {
+  background: var(--danger-soft);
+  border-color: rgba(185, 56, 50, 0.2);
+}
+
+.deployment-diagnostic-danger strong {
+  color: var(--danger);
+}
+
+.deployment-diagnostic-info {
+  background: var(--info-soft);
+  border-color: rgba(47, 109, 178, 0.2);
+}
+
+.deployment-diagnostic-info strong {
+  color: var(--info);
+}
+
 .trend-chart {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
