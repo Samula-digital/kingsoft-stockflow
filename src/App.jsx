@@ -93,17 +93,22 @@ const tabs = [
 const defaultTabByRole = {
   admin: "dashboard",
   finance: "finance",
-  store: "entry",
+  stores: "entry",
 };
 
 const tabPriorityByRole = {
   admin: ["dashboard", "entry", "stock", "finance", "department", "history", "admin"],
   finance: ["finance", "department", "stock", "history"],
-  store: ["entry", "finance", "stock", "department", "history"],
+  stores: ["entry", "finance", "stock", "department", "history"],
 };
 
+function normalizeRole(role) {
+  const normalizedRole = String(role ?? "").trim().toLowerCase();
+  return normalizedRole === "store" ? "stores" : normalizedRole;
+}
+
 function sortTabsForRole(role, availableTabs) {
-  const priority = tabPriorityByRole[role] ?? tabs.map((tab) => tab.id);
+  const priority = tabPriorityByRole[normalizeRole(role)] ?? tabs.map((tab) => tab.id);
 
   return [...availableTabs].sort((left, right) => {
     const leftIndex = priority.indexOf(left.id);
@@ -848,7 +853,7 @@ export default function App() {
     const preferredTabId =
       requestedTabId && allowedTabs.some((tab) => tab.id === requestedTabId)
         ? requestedTabId
-        : defaultTabByRole[currentUser.role];
+        : defaultTabByRole[normalizeRole(currentUser.role)];
 
     if (preferredTabId && allowedTabs.some((tab) => tab.id === preferredTabId)) {
       initializedUserIdRef.current = currentUser.id;
@@ -1569,7 +1574,7 @@ export default function App() {
           name: action.name || "",
           email: action.email || "",
           password: action.password || "",
-          role: action.role || "store",
+          role: action.role || "stores",
         },
         users,
         null,
@@ -1585,7 +1590,7 @@ export default function App() {
           name: action.name,
           email: action.email,
           password: action.password,
-          role: action.role || "store",
+          role: action.role || "stores",
         }
       );
 
@@ -1594,7 +1599,7 @@ export default function App() {
         sectionId: "accounts",
         requestId: `${Date.now()}-accounts`,
       });
-      return `Created ${action.role || "store"} account for ${createdUser?.name || action.name}.`;
+      return `Created ${action.role || "stores"} account for ${createdUser?.name || action.name}.`;
     }
 
     if (action.type === "approve_account") {

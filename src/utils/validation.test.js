@@ -3,6 +3,7 @@ import {
   validateDepartmentForm,
   validateItemForm,
   validateMovementEntry,
+  validateUserAccountForm,
 } from "./validation";
 
 describe("movement validation", () => {
@@ -336,5 +337,37 @@ describe("department validation", () => {
     expect(result.errors.requisitionStartNumber).toBe(
       "First requisition page must be 1 or greater."
     );
+  });
+});
+
+describe("user account validation", () => {
+  it("accepts stores as the movement-entry role", () => {
+    const result = validateUserAccountForm(
+      {
+        name: "Store User",
+        email: "stores@example.com",
+        password: "StrongPass123!",
+        role: "stores",
+      },
+      []
+    );
+
+    expect(result.isValid).toBe(true);
+    expect(result.normalizedUser.role).toBe("stores");
+  });
+
+  it("normalizes the legacy store role", () => {
+    const result = validateUserAccountForm(
+      {
+        name: "Store User",
+        email: "store@example.com",
+        password: "StrongPass123!",
+        role: "store",
+      },
+      []
+    );
+
+    expect(result.isValid).toBe(true);
+    expect(result.normalizedUser.role).toBe("stores");
   });
 });

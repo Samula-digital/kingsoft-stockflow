@@ -8,7 +8,7 @@ describe("role permissions", () => {
   });
 
   it("allows store movement work but not stock level editing", () => {
-    const permissions = getRolePermissions("store");
+    const permissions = getRolePermissions("stores");
 
     expect(permissions.canEnterMovements).toBe(true);
     expect(permissions.canCreateItems).toBe(true);
@@ -31,5 +31,10 @@ describe("role permissions", () => {
     const permissions = getRolePermissions("finance");
 
     expect(permissions.canCreateItems).toBe(false);
+  });
+
+  it("keeps legacy store role values working", () => {
+    expect(getRolePermissions("store").canEnterMovements).toBe(true);
+    expect(canRoleAccessModule("store", "entry")).toBe(true);
   });
 });

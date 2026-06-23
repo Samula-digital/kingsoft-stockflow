@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS users (
   name TEXT NOT NULL,
   email TEXT NOT NULL UNIQUE,
   password_hash TEXT NOT NULL,
-  role TEXT NOT NULL CHECK (role IN ('admin', 'store', 'finance')),
+  role TEXT NOT NULL CHECK (role IN ('admin', 'store', 'stores', 'finance')),
   status TEXT NOT NULL CHECK (status IN ('pending', 'approved', 'rejected')),
   created_at TIMESTAMPTZ NOT NULL,
   approved_at TIMESTAMPTZ NULL,

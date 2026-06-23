@@ -48,17 +48,18 @@ export function buildDailySupportPlan({ metrics, stockRows, financeEmail, role =
   const needsImmediateControl = negativeRows.length > 0;
   const needsSetupWork = missingCostRows.length > 0 || !financeEmail;
   const needsRestockAttention = belowMinRows.length > 0 || zeroRows.length > 0;
-  const normalizedRole = String(role ?? "admin").trim().toLowerCase() || "admin";
+  const rawRole = String(role ?? "admin").trim().toLowerCase() || "admin";
+  const normalizedRole = rawRole === "store" ? "stores" : rawRole;
 
   const roleLabel =
-    normalizedRole === "store"
+    normalizedRole === "stores"
       ? "Storekeeper briefing"
       : normalizedRole === "finance"
         ? "Finance briefing"
         : "Admin briefing";
 
   const rolePlans = {
-    store: {
+    stores: {
       headline: needsImmediateControl
         ? "Storekeeper should start with stock corrections before new issue work."
         : needsRestockAttention

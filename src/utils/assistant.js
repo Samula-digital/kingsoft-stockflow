@@ -179,11 +179,11 @@ function extractPassword(query) {
   return query.match(/\b(?:password|pass)\s*[:\-]?\s*([^\s,;]+)/i)?.[1] ?? "";
 }
 
-function extractRole(query, fallback = "store") {
+function extractRole(query, fallback = "stores") {
   const normalizedQuery = normalizeSearchValue(query);
   if (normalizedQuery.includes("finance")) return "finance";
   if (normalizedQuery.includes("admin")) return "admin";
-  if (normalizedQuery.includes("store")) return "store";
+  if (normalizedQuery.includes("store")) return "stores";
   return fallback;
 }
 
@@ -934,7 +934,7 @@ function buildFinanceIntentReply(query, context) {
 function buildCreateAccountReply(query, context) {
   if (!canManageAdmin(context)) return null;
 
-  const role = extractRole(query, "store");
+  const role = extractRole(query, "stores");
   const email = extractEmail(query);
   const password = extractPassword(query);
   const name = extractName(

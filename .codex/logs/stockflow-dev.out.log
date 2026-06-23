@@ -1,0 +1,52 @@
+
+> kingsoft-stockflow@0.0.1 dev
+> node scripts/dev.js
+
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m1677[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m5173[22m/[39m
+Stock Flow server running
+  http://localhost:4000
+[2m12:19:12[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m12:20:26[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.jsx[22m
+[2m12:20:26[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/AppShell.jsx[22m
+[2m12:20:26[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/data/itemCategories.js[22m
+[2m12:20:26[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/hooks/useStockFlowState.js[22m
+[2m12:20:26[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/services/api.js[22m
+[2m12:20:26[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/assistant.js[22m
+[2m12:20:26[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/vendor/xlsx.js[22m
+[2m12:20:26[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/views/AdminView.jsx[22m
+[2m12:20:26[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/main.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/AssistantPanel.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/BrandMark.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/DataTable.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/DismissibleNotice.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/EmptyState.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/GettingStartedTour.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/PasswordChangePanel.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/StatusPill.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/TextPromptDialog.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/branding.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/calculations.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/dateRanges.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/excelImport.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/export.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/formatters.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/importTransforms.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/operationalInsights.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/passwordPolicy.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/permissions.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/validation.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/workbookDepartments.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/workbookPackRules.js[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/views/AuthView.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/views/DashboardView.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/views/DepartmentDailyView.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/views/EntryView.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/views/FinanceDailyView.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/views/HistoryView.jsx[22m
+[2m12:20:27[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/views/StockOnHandView.jsx[22m
+[2m12:20:33[22m [36m[1m[vite][22m[39m server restarted.

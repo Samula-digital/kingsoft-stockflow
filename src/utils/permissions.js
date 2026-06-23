@@ -27,7 +27,7 @@ const permissionProfiles = {
     canDeleteMovementHistory: false,
     showAssistant: true,
   },
-  store: {
+  stores: {
     moduleIds: ["entry", "finance", "stock", "department", "history"],
     canEnterMovements: true,
     canCreateItems: true,
@@ -50,8 +50,13 @@ const fallbackProfile = {
   showAssistant: false,
 };
 
+function normalizeRole(role) {
+  const normalizedRole = String(role ?? "").trim().toLowerCase();
+  return normalizedRole === "store" ? "stores" : normalizedRole;
+}
+
 export function getRolePermissions(role) {
-  return permissionProfiles[role] ?? fallbackProfile;
+  return permissionProfiles[normalizeRole(role)] ?? fallbackProfile;
 }
 
 export function canRoleAccessModule(role, moduleId) {

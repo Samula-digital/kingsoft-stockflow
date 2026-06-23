@@ -367,7 +367,7 @@ export default function AdminView({
     name: "",
     email: "",
     password: "",
-    role: "store",
+    role: "stores",
     forcePasswordReset: true,
   });
   const [accountErrors, setAccountErrors] = useState({});
@@ -1696,7 +1696,7 @@ export default function AdminView({
       name: "",
       email: "",
       password: "",
-      role: "store",
+      role: "stores",
       forcePasswordReset: true,
     });
   }
@@ -2698,7 +2698,7 @@ export default function AdminView({
               <StatusPill tone="info">Admin-controlled access</StatusPill>
             </div>
             <div className="pill-row">
-              <StatusPill tone="neutral">Role {accountForm.role || "store"}</StatusPill>
+              <StatusPill tone="neutral">Role {accountForm.role || "stores"}</StatusPill>
               <StatusPill tone={accountForm.forcePasswordReset !== false ? "warning" : "success"}>
                 {accountForm.forcePasswordReset !== false
                   ? "Password change required"
@@ -2759,7 +2759,7 @@ export default function AdminView({
                   setAccountForm((current) => ({ ...current, role: event.target.value }))
                 }
               >
-                <option value="store">Stores</option>
+                <option value="stores">Stores</option>
                 <option value="finance">Finance</option>
                 <option value="admin">Admin</option>
               </select>

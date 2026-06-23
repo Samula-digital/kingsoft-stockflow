@@ -64,16 +64,20 @@ export function bootstrapAdmin(body) {
 }
 
 export function signIn(body) {
-  return requestJson("/api/auth/signin", {
+  return requestJson("/api/auth/login", {
     method: "POST",
     body,
   });
 }
 
 export function signOut() {
-  return requestJson("/api/auth/signout", {
+  return requestJson("/api/auth/logout", {
     method: "POST",
   });
+}
+
+export function fetchCurrentUser() {
+  return requestJson("/api/auth/me");
 }
 
 export function requestAccess(body) {

@@ -36,7 +36,7 @@ export default function AuthView({
     name: "",
     email: "",
     password: "",
-    role: "store",
+    role: "stores",
   });
   const brandStyles = buildBrandStyles({
     accentColor: brandAccentColor,
@@ -141,7 +141,7 @@ export default function AuthView({
       name: "",
       email: "",
       password: "",
-      role: "store",
+      role: "stores",
     });
   }
 
@@ -424,7 +424,7 @@ export default function AuthView({
                     setRegisterForm((current) => ({ ...current, role: event.target.value }))
                   }
                 >
-                  <option value="store">Stores</option>
+                  <option value="stores">Stores</option>
                   <option value="finance">Finance</option>
                 </select>
               </label>

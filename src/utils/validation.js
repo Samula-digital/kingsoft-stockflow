@@ -272,9 +272,10 @@ export function validateUserAccountForm(form, users, currentUserId = null, optio
   const passwordCheck = validatePasswordStrength(form.password, {
     allowBlank: options.passwordRequired === false,
   });
-  const role = String(form.role ?? "store").trim().toLowerCase() || "store";
+  const rawRole = String(form.role ?? "stores").trim().toLowerCase() || "stores";
+  const role = rawRole === "store" ? "stores" : rawRole;
   const passwordRequired = options.passwordRequired !== false;
-  const allowedRoles = ["store", "finance", "admin"];
+  const allowedRoles = ["stores", "finance", "admin"];
 
   if (!name) errors.name = "Full name is required.";
   if (!emailCheck.isValid) errors.email = emailCheck.error;

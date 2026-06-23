@@ -86,7 +86,7 @@ const rolePermissions = {
     canDeleteMovementHistory: true,
     canEditSystem: true,
   },
-  store: {
+  stores: {
     canEnterMovements: true,
     canCreateItems: true,
     canEditMovementHistory: true,
@@ -101,6 +101,28 @@ const rolePermissions = {
     canEditSystem: false,
   },
 };
+
+function normalizeRole(value, fallback = "stores") {
+  const role = String(value ?? fallback).trim().toLowerCase();
+  if (role === "store" || role === "stores") return "stores";
+  if (role === "finance" || role === "admin") return role;
+  return fallback;
+}
+
+function normalizeRoleForStorage(value, fallback = "stores") {
+  const role = normalizeRole(value, fallback);
+  return role === "stores" ? "store" : role;
+}
+
+function mapUserForApi(user) {
+  if (!user) return null;
+
+  return {
+    ...user,
+    role: normalizeRole(user.role),
+    passwordHash: undefined,
+  };
+}
 
 function validateEmailAddress(value, { allowBlank = true } = {}) {
   const email = String(value ?? "").trim();
@@ -122,7 +144,7 @@ function validateEmailAddress(value, { allowBlank = true } = {}) {
 }
 
 function getRolePermissions(role) {
-  return rolePermissions[role] ?? rolePermissions.finance;
+  return rolePermissions[normalizeRole(role, "finance")] ?? rolePermissions.finance;
 }
 
 function readJsonBody(request) {
@@ -215,12 +237,12 @@ function validatePassword(value) {
 }
 
 function validateRole(value, allowAdmin = true) {
-  const role = String(value ?? "store").trim().toLowerCase() || "store";
-  const allowedRoles = allowAdmin ? ["store", "finance", "admin"] : ["store", "finance"];
+  const role = normalizeRole(value, "stores");
+  const allowedRoles = allowAdmin ? ["stores", "finance", "admin"] : ["stores", "finance"];
 
   return {
     isValid: allowedRoles.includes(role),
-    role,
+    role: normalizeRoleForStorage(role),
   };
 }
 
@@ -313,7 +335,7 @@ async function buildSnapshot(currentUser = null) {
   const safeCurrentUser = currentUser?.id ? await findUserAuthById(currentUser.id) : null;
   const approvedCurrentUser =
     safeCurrentUser && safeCurrentUser.status === "approved"
-      ? {
+      ? mapUserForApi({
           id: safeCurrentUser.id,
           name: safeCurrentUser.name,
           email: safeCurrentUser.email,
@@ -324,7 +346,7 @@ async function buildSnapshot(currentUser = null) {
           approvedBy: safeCurrentUser.approvedBy,
           lastSignedInAt: safeCurrentUser.lastSignedInAt,
           forcePasswordReset: safeCurrentUser.forcePasswordReset,
-        }
+        })
       : null;
 
   return {
@@ -332,7 +354,7 @@ async function buildSnapshot(currentUser = null) {
     requiresBootstrap: !(await hasUsers()),
     state: approvedCurrentUser ? state : createPublicBootstrapState(state),
     currentUser: approvedCurrentUser,
-    users: approvedCurrentUser?.role === "admin" ? await listUsers() : [],
+    users: approvedCurrentUser?.role === "admin" ? (await listUsers()).map(mapUserForApi) : [],
     lastSavedAt: updatedAt,
   };
 }
@@ -712,6 +734,29 @@ async function handleSignOut(request, response) {
   );
 }
 
+function isPublicApiRoute(method, pathname) {
+  if (method === "GET" && pathname === "/api/health") return true;
+  if (method === "GET" && pathname === "/api/bootstrap") return true;
+  if (method === "POST" && pathname === "/api/auth/bootstrap-admin") return true;
+  if (method === "POST" && (pathname === "/api/auth/login" || pathname === "/api/auth/signin")) {
+    return true;
+  }
+  if (method === "POST" && (pathname === "/api/auth/logout" || pathname === "/api/auth/signout")) {
+    return true;
+  }
+  if (method === "POST" && pathname === "/api/auth/request-access") return true;
+  return false;
+}
+
+async function handleCurrentUser(response, currentUser) {
+  if (!requireSignedIn(currentUser, response)) return;
+
+  writeJson(response, 200, {
+    ok: true,
+    currentUser: mapUserForApi(currentUser),
+  });
+}
+
 async function handleRequestAccess(request, response) {
   const body = await readJsonBody(request);
   const throttleKey = buildAuthAttemptKey("request-access", request, body.email);
@@ -951,7 +996,7 @@ async function handleApproveUser(request, response, currentUser, pathname) {
   }
 
   const body = await readJsonBody(request);
-  const roleCheck = validateRole(body.role ?? "store", true);
+  const roleCheck = validateRole(body.role ?? "stores", true);
   if (!roleCheck.isValid) {
     writeJson(response, 400, {
       ok: false,
@@ -1280,12 +1325,18 @@ const server = createServer(async (request, response) => {
       return;
     }
 
-    if (request.method === "POST" && pathname === "/api/auth/signin") {
+    if (
+      request.method === "POST" &&
+      (pathname === "/api/auth/login" || pathname === "/api/auth/signin")
+    ) {
       await handleSignIn(request, response);
       return;
     }
 
-    if (request.method === "POST" && pathname === "/api/auth/signout") {
+    if (
+      request.method === "POST" &&
+      (pathname === "/api/auth/logout" || pathname === "/api/auth/signout")
+    ) {
       await handleSignOut(request, response);
       return;
     }
@@ -1293,6 +1344,15 @@ const server = createServer(async (request, response) => {
     if (request.method === "POST" && pathname === "/api/auth/request-access") {
       await handleRequestAccess(request, response);
       return;
+    }
+
+    if (request.method === "GET" && pathname === "/api/auth/me") {
+      await handleCurrentUser(response, currentUser);
+      return;
+    }
+
+    if (pathname.startsWith("/api/") && !isPublicApiRoute(request.method, pathname)) {
+      if (!requireSignedIn(currentUser, response)) return;
     }
 
     if (request.method === "POST" && pathname === "/api/auth/change-password") {
